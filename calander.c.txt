@@ -1,0 +1,184 @@
+//CALENDAR FOR THE PROJECT
+#include<stdio.h>
+#include<stdlib.h>
+int ch,d,m,year,month,weekDay,l,f,i,j,day,c;
+char *months[]={"January","February","March","April","May","June","July","August","September","October","November","December"};
+char *days[]={"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"};
+int monthDays[]={31,28,31,30,31,30,31,31,30,31,30,31};
+int monthkey[]={00,1,4,4,0,2,5,0,3,6,1,4,6};
+void Firstday();
+
+int main()
+{
+	int monthDays[]={31,28,31,30,31,30,31,31,30,31,30,31};
+    do
+    { 
+     printf("______________________________________________________________________________\n");
+     printf("\n                        C-PROJECT CALENDAR                                \n");   
+     printf("______________________________________________________________________________\n");
+     printf("\n\n");
+	 printf("1.See the Calendar.\n");
+	 printf("2.Day for the given Date.\n");
+	 printf("3.Check whether the Year is Leap year or not.\n");
+	 printf("4.Exit\n");
+	 printf("\nSelect the option : ");
+	 scanf("%d",&ch);
+	 printf("\nThank You for choosing option %d.\n",ch);
+	 printf("\n");
+	 switch (ch)
+	 {
+         case 1 : 
+                  d=1;
+                  m=1;
+                  printf("Enter the Year: ");
+	              scanf("%d",&year);
+                  Firstday();
+                  if ((year%4==0&&year%100!=0)||year%400==0)
+	              {
+	                 monthDays[1]=29;
+	                  j=1;
+	              }
+	               if (f==0)
+	               f=6;
+	               else f=f-1;
+                   for(month=0;month<12;month++)
+                   {
+                   printf("\n\n------------------%s----------------",months[month]);
+                   printf("\n  Sun   Mon  Tue  Wed  Thurs Fri  Sat\n");
+                   for(weekDay=0;weekDay<f;weekDay++)
+                   {
+                        printf("     ");
+                   }
+                   for(day=1;day<monthDays[month]+1;day++)
+                   {
+                   printf("%5d",day);
+                   if(++weekDay>6)
+                   {
+                   printf("\n");
+                   weekDay=0;
+                   }
+                   f=weekDay;
+               }
+           }
+           printf("\n__________________________________________\n");
+           printf("\n****        THANK YOU                ****\n");
+           printf("__________________________________________\n");
+           break;
+         case 2 :
+                 printf("Enter the Date in DD-MM-YYYY format : ");
+                 scanf("%d-%d-%d",&d,&m,&year);
+                 Firstday();
+                 if ((year%4==0&&year%100!=0)||year%400==0)
+	             {
+	                 monthDays[1]=29;
+	                  j=1;
+	             }
+     	         if (d<=monthDays[m]&&d>0)
+     	         {
+	    
+	                if (d==29&&m==2)
+	                {
+	                   break;
+	                }
+                    printf("The Day for the given date is %s.\n",days[f]);
+                 }
+                printf("\n__________________________________________\n");
+                printf("\n****        THANK YOU                ****\n");
+                printf("__________________________________________\n");
+               break;
+        case 3 :
+        	printf("Enter the Year : ");
+        	scanf("%d",&year);
+        	if ((year%4==0&&year%100!=0)||year%400==0)
+	            printf("\nIt's a Leap year.\n");
+	        else
+	        printf("\nIt's not a Leap Year.\n");
+	        printf("\n__________________________________________\n");
+            printf("\n****        THANK YOU                ****\n");
+            printf("__________________________________________\n");
+	        break;
+	    case 4 : break;     
+	    default : printf("Please select a valid option.");    
+      }
+      if (ch != 4)
+	  {
+       do{
+           printf("\n1. Execute again.\n");
+           printf("2. Exit.\n");
+           printf("Select the option: ");
+           scanf("%d",&c);
+           printf("\n");
+           switch (c)
+           {
+              case 1 : c=1;
+              system ("cls");
+                       break;
+              case 2 : break;
+              default: system ("cls");
+			           printf("Please select valid option.\n"); 
+                       c=89;
+           }
+         }while (c==89);
+      }
+      else if (ch==4)
+      break;
+    }  while (c == 1);
+    return 1;
+}
+void Firstday()
+{	
+	    if ((year%4==0&&year%100!=0)||year%400==0)
+	    {
+	        monthDays[1]=29;
+	        j=1;
+	    }
+	if (d<=monthDays[m]&&d>0)
+	{
+	    
+	    if (d==29&&m==2)
+	    {
+	        if (j!=1)
+	        printf("The date you entered is wrong.\nIt's not a Leap year.");
+	    }
+	    else
+	    {
+	    	f=year%100;
+            f=f/4;
+            f=f+d;
+            f=f+monthkey[m];
+	    }
+       
+        if (((m==1)||(m==2))&&(j==1))
+           f=f-1;
+        if (year>2100)
+        {
+        	for (i=0;year>=2100;i++)
+        	{
+        		year=year-400;
+        	}
+        }
+        else if (year<1700)
+        {
+        	for (i=0;year<1700;i++)
+        	{
+                year=year+400;
+        	}
+        }
+        if (year>=1700&&year<1800)
+           f=f+4;
+        else if (year>=1800&&year<1900)
+                f=f+2;
+        else if (year>=1900&&year<2000)
+                f=f+0;
+        else if (year>=2000&&year<2100)
+                f=f+6;
+        else 
+        {
+           printf("Something went wrong.");
+        }
+        f=f+(year%100);
+        f=f%7;
+   }
+     else
+     printf("**Please enter valid Date.**\n");
+}
